@@ -13,11 +13,11 @@ export default new Vuex.Store({
       state.posts = data
     },
     removeItem: (state, id) => {
-      state.posts.filter(post => post.id !== id)
+      const newState = state.posts.filter(post => post.id !== id)
+      state.posts = newState
     },
     addItem: (state, item) => {
       state.posts.push(item)
-      console.log(state)
     },
   },
   actions: {
@@ -32,14 +32,22 @@ export default new Vuex.Store({
         })
     },
     removePost(context, id) {
-      console.log(id)
       axios.delete(`http://localhost:3000/posts/${id}`)
       context.commit('removeItem', id)
     },
     addPost(context, post) {
-      axios.post(`http://localhost:3000/posts/`, { content: post })
-      context.commit('addItem', { content: post })
+      axios.post(`http://localhost:3000/posts/`, {
+        id: Math.floor(Math.random() * 101),
+        content: post
+      })
+      context.commit('addItem', {
+        id: Math.floor(Math.random() * 101),
+        content: post
+      })
     },
+    updatePost(context, data) {
+      axios.put(`http://localhost:3000/posts/${data.id}`, { content: data.post })
+    }
   },
   modules: {},
 });
