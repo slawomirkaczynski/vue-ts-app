@@ -15,19 +15,19 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld />
+      <PostCard />
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "@/components/HelloWorld.vue";
+import PostCard from "@/components/PostCard.vue";
 import AddTask from "@/components/AddTask.vue";
 
 @Component({
   components: {
-    HelloWorld,
+    PostCard,
     AddTask,
   },
 })

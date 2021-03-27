@@ -19,6 +19,10 @@ export default new Vuex.Store({
     addItem: (state, item) => {
       state.posts.push(item)
     },
+    saveStyles: (state, item) => {
+      const editedPost = state.posts.find(post => post.id === item.id)
+      editedPost!.savedStyle = item.style
+    }
   },
   actions: {
     async fetchData(context) {
@@ -47,7 +51,17 @@ export default new Vuex.Store({
     },
     updatePost(context, data) {
       axios.put(`http://localhost:3000/posts/${data.id}`, { content: data.post })
-    }
+    },
+    setStyles(context, data) {
+      // axios.post(`http://localhost:3000/posts/`, {
+      //   id: Math.floor(Math.random() * 101),
+      //   content: post
+      // })
+      context.commit('saveStyles', {
+        id: Number(data.id),
+        style: data.value
+      })
+    },
   },
   modules: {},
 });

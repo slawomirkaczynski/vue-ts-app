@@ -11,20 +11,15 @@
       <v-list-item three-line>
         <v-list-item-content>
           <div class="overline mb-4">Post {{ post.id }}</div>
-
           <v-list-item-subtitle
             contenteditable="true"
+            spellcheck="false"
             @blur="handleBlur({ post: $event.target.innerText, id: post.id })"
+            :class="post.id === id ? style : post.savedStyle"
             >{{ post.content }}</v-list-item-subtitle
           >
         </v-list-item-content>
-        <v-col cols="12" sm="3" md="3">
-          <v-radio-group v-model="style" hide-details @change="setStyle(style)">
-            <v-radio value="bold" label="B"></v-radio>
-            <v-radio value="italic" label="I"></v-radio>
-            <v-radio value="underline" label="U"></v-radio>
-          </v-radio-group>
-        </v-col>
+        <ButtonsRadio @value-change="changeStyle" />
       </v-list-item>
 
       <v-card-actions>
@@ -38,10 +33,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ButtonsRadio from "./ButtonsRadio.vue";
 
-@Component
+@Component({
+  components: {
+    ButtonsRadio,
+  },
+})
 export default class HelloWorld extends Vue {
-  style = null;
+  id = 0;
+  style = "";
   get posts(): void {
     return this.$store.state.posts;
   }
@@ -53,9 +54,11 @@ export default class HelloWorld extends Vue {
   removePost(id: number): void {
     this.$store.dispatch("removePost", id);
   }
+  changeStyle(value: string, id: string): void {
+    this.style = value;
+    this.id = Number(id);
 
-  setStyle(value) {
-    console.log(value);
+    this.$store.dispatch("setStyles", { id, value });
   }
 }
 </script>
@@ -63,5 +66,17 @@ export default class HelloWorld extends Vue {
 <style scoped>
 .card {
   margin: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
 }
 </style>
