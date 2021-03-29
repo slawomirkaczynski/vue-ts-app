@@ -15,10 +15,11 @@ import { Component, Vue } from "vue-property-decorator";
 export default class ButtonsRadio extends Vue {
   style = "null";
   setStyle(): void {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const id = this.$el.parentElement?.firstChild?.firstChild
       ?.textContent!.split(" ")
       .slice(1)
-      .join(" ") ;
+      .join(" ");
 
     this.$emit("value-change", this.style, Number(id));
   }
