@@ -24,8 +24,16 @@
           <v-btn color="blue darken-1" text @click="dialog = false">
             Close
           </v-btn>
-
-          <v-btn color="blue darken-1" text @click="send"> Save </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="
+              addPost(message);
+              send();
+            "
+          >
+            Save
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -34,14 +42,18 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+
+const post = namespace("posts");
 
 @Component
 export default class AddTask extends Vue {
   dialog = false;
   message = "";
+  @post.Action
+  public addPost: (post: string) => void;
 
   send(): void {
-    this.$store.dispatch("addPost", this.message);
     this.dialog = false;
     this.message = "";
   }

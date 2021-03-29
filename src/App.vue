@@ -9,6 +9,7 @@
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
           transition="scale-transition"
           width="160"
+          @load="fetchData"
         />
         <AddTask />
       </div>
@@ -24,6 +25,9 @@
 import { Component, Vue } from "vue-property-decorator";
 import PostCard from "@/components/PostCard.vue";
 import AddTask from "@/components/AddTask.vue";
+import { namespace } from "vuex-class";
+
+const posts = namespace("posts");
 
 @Component({
   components: {
@@ -32,8 +36,7 @@ import AddTask from "@/components/AddTask.vue";
   },
 })
 export default class Home extends Vue {
-  mounted(): void {
-    this.$store.dispatch("fetchData");
-  }
+  @posts.Action
+  public fetchData: () => void;
 }
 </script>

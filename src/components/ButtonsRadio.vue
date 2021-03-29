@@ -10,22 +10,17 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "@/components/PostCard.vue";
 
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
+@Component
 export default class ButtonsRadio extends Vue {
-  style = null;
+  style = "null";
   setStyle(): void {
     const id = this.$el.parentElement?.firstChild?.firstChild
       ?.textContent!.split(" ")
       .slice(1)
-      .join(" ");
+      .join(" ") ;
 
-    this.$emit("value-change", this.style, id);
+    this.$emit("value-change", this.style, Number(id));
   }
 }
 </script>

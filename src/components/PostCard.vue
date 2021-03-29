@@ -14,7 +14,7 @@
           <v-list-item-subtitle
             contenteditable="true"
             spellcheck="false"
-            @blur="handleBlur({ post: $event.target.innerText, id: post.id })"
+            @blur="updatePost({ post: $event.target.innerText, id: post.id })"
             :class="post.id === id ? style : post.savedStyle"
             >{{ post.content }}</v-list-item-subtitle
           >
@@ -34,6 +34,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ButtonsRadio from "./ButtonsRadio.vue";
+import { namespace } from "vuex-class";
+
+const Posts = namespace("posts");
 
 @Component({
   components: {
@@ -43,22 +46,23 @@ import ButtonsRadio from "./ButtonsRadio.vue";
 export default class HelloWorld extends Vue {
   id = 0;
   style = "";
-  get posts(): void {
-    return this.$store.state.posts;
-  }
 
-  handleBlur(data: Record<string, unknown>): void {
-    this.$store.dispatch("updatePost", data);
-  }
+  @Posts.Getter
+  posts!: Record<string, unknown>[];
 
-  removePost(id: number): void {
-    this.$store.dispatch("removePost", id);
-  }
-  changeStyle(value: string, id: string): void {
+  @Posts.Action
+  public updatePost: (data: Record<string, unknown>) => void;
+
+  @Posts.Action
+  public removePost: (id: number) => void;
+
+  @Posts.Action
+  public setStyles: (data: Record<string, unknown>) => void;
+
+  changeStyle(value: string, id: number): void {
     this.style = value;
-    this.id = Number(id);
-
-    this.$store.dispatch("setStyles", { id, value });
+    this.id = id;
+    this.setStyles({ value, id });
   }
 }
 </script>
