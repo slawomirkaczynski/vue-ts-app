@@ -22,3 +22,13 @@ import MainLayout from "@/components/PostCard.vue";
 })
 export default class Home extends Vue {}
 </script>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+</style>
