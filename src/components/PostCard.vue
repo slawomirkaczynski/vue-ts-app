@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-main>
     <v-card
       class="mx-auto card"
       max-width="344"
@@ -8,27 +8,28 @@
       v-for="post in posts"
       :key="post.id"
     >
-      <v-list-item three-line>
-        <v-list-item-content>
-          <div class="overline mb-4">Post {{ post.id }}</div>
-          <v-list-item-subtitle
-            contenteditable="true"
-            spellcheck="false"
-            @blur="updatePost({ post: $event.target.innerText, id: post.id })"
-            :class="post.id === id ? style : post.savedStyle"
-            >{{ post.content }}</v-list-item-subtitle
-          >
-        </v-list-item-content>
-        <ButtonsRadio @value-change="changeStyle" />
-      </v-list-item>
-
+      <router-link :to="{ name: 'Post', params: { id: post.id } }">
+        <v-list-item three-line>
+          <v-list-item-content>
+            <div class="overline mb-4">Post {{ post.id }}</div>
+            <v-list-item-subtitle
+              contenteditable="true"
+              spellcheck="false"
+              @blur="updatePost({ post: $event.target.innerText, id: post.id })"
+              :class="post.id === id ? style : post.savedStyle"
+              >{{ post.content }}</v-list-item-subtitle
+            >
+          </v-list-item-content>
+          <ButtonsRadio @value-change="changeStyle" />
+        </v-list-item>
+      </router-link>
       <v-card-actions>
         <v-btn outlined rounded text @click="removePost(post.id)">
           Remove
         </v-btn>
       </v-card-actions>
     </v-card>
-  </div>
+  </v-main>
 </template>
 
 <script lang="ts">
@@ -43,7 +44,7 @@ const Posts = namespace("posts");
     ButtonsRadio,
   },
 })
-export default class HelloWorld extends Vue {
+export default class PostCard extends Vue {
   id = 0;
   style = "";
 
