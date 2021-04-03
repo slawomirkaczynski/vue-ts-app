@@ -8,24 +8,27 @@
       v-for="post in posts"
       :key="post.id"
     >
-      <router-link :to="{ name: 'Post', params: { id: post.id } }">
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="overline mb-4">Post {{ post.id }}</div>
-            <v-list-item-subtitle
-              contenteditable="true"
-              spellcheck="false"
-              @blur="updatePost({ post: $event.target.innerText, id: post.id })"
-              :class="post.id === id ? style : post.savedStyle"
-              >{{ post.content }}</v-list-item-subtitle
-            >
-          </v-list-item-content>
-          <ButtonsRadio @value-change="changeStyle" />
-        </v-list-item>
-      </router-link>
+      <v-list-item three-line>
+        <v-list-item-content>
+          <div class="overline mb-4">Post {{ post.id }}</div>
+          <v-list-item-subtitle
+            contenteditable="true"
+            spellcheck="false"
+            @blur="updatePost({ post: $event.target.innerText, id: post.id })"
+            :class="post.id === id ? style : post.savedStyle"
+            >{{ post.content }}</v-list-item-subtitle
+          >
+        </v-list-item-content>
+        <ButtonsRadio @value-change="changeStyle" />
+      </v-list-item>
       <v-card-actions>
         <v-btn outlined rounded text @click="removePost(post.id)">
           Remove
+        </v-btn>
+        <v-btn outlined rounded text>
+          <router-link :to="{ name: 'Post', params: { id: post.id } }">
+            Details
+          </router-link>
         </v-btn>
       </v-card-actions>
     </v-card>
