@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <v-container>
     <v-card
       class="mx-auto card"
       max-width="344"
@@ -8,6 +8,11 @@
       v-for="post in posts"
       :key="post.id"
     >
+      <Detailsview>
+        <template slot="nr">
+          <div class="header">Post {{ post.id }}</div>
+        </template>
+      </Detailsview>
       <v-list-item three-line>
         <v-list-item-content>
           <div class="overline mb-4">Post {{ post.id }}</div>
@@ -32,12 +37,13 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-  </v-main>
+  </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ButtonsRadio from "./ButtonsRadio.vue";
+import Detailsview from "./DetailsView.vue";
 import { namespace } from "vuex-class";
 
 const Posts = namespace("posts");
@@ -45,6 +51,7 @@ const Posts = namespace("posts");
 @Component({
   components: {
     ButtonsRadio,
+    Detailsview,
   },
 })
 export default class PostCard extends Vue {
@@ -73,7 +80,7 @@ export default class PostCard extends Vue {
 
 <style scoped>
 .card {
-  margin: 10px;
+  margin-top: -60px;
 }
 
 .bold {
@@ -86,5 +93,14 @@ export default class PostCard extends Vue {
 
 .underline {
   text-decoration: underline;
+}
+
+.header {
+  background-color: orange;
+  text-align: center;
+}
+
+.overline {
+  display: none;
 }
 </style>

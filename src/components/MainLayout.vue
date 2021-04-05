@@ -1,15 +1,17 @@
 <template>
-  <PostCard />
+  <v-main>
+    <PostCard />
+  </v-main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import NavBar from "@/components/NavBar.vue";
+import Details from "@/components/DetailsView.vue";
 import PostCard from "@/components/PostCard.vue";
 
 @Component({
   components: {
-    NavBar,
+    Details,
     PostCard,
   },
 })

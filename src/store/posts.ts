@@ -1,13 +1,27 @@
-import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
+import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators";
 import axios from "axios";
-
+// prettier-ignore
 @Module({ namespaced: true })
 class Posts extends VuexModule {
-    _posts: Record<string, unknown>[] = [
-    ]
+    _posts: Record<string, unknown>[] = []
+    _post: Record<string, unknown> = {}
 
     get posts() {
         return this._posts
+    }
+
+    get post() {
+        return this._post
+    }
+
+    @Mutation
+    setSinglePost(post: Record<string, unknown>) {
+        this._post = post
+    }
+
+    @Mutation
+    resetSinglePost() {
+        this._post = {}
     }
 
     @Mutation
@@ -72,5 +86,14 @@ class Posts extends VuexModule {
             })
         }
     }
+    @Action
+    getPost(id: number) {
+        const post = this._posts.find(item => item.id === id)
+        this.context.commit('setSinglePost', post)
+    }
+    @Action
+    resetPost() {
+        this.context.commit('resetSinglePost')
+    }
 }
-export default Posts
+export default Posts;
