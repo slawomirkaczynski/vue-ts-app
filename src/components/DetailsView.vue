@@ -7,22 +7,33 @@
       </v-btn></v-subheader
     >
     <main class="container" v-if="post">
-      <div v-if="post">post content:{{ post.content }}</div>
-      <div v-if="post">post id: {{ post.id }}</div>
-      <div v-if="post.content">post length: {{ post.content.length }}</div>
-      <div v-if="post.savedStyle">post style: {{ post.savedStyle }}</div>
+      <div v-if="post">{{ post.content }}</div>
     </main>
+    <div class="map">
+      <Map v-if="displayButton" />
+      <!-- <Map v-if="displayButton" :center="center" /> -->
+    </div>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
+import Map from "./Map.vue";
 
 const Posts = namespace("posts");
 
-@Component({})
+@Component({
+  components: {
+    Map,
+  },
+})
 export default class DetailsView extends Vue {
+  // center: {
+  //   lat: 10.73061;
+  //   lng: -23.935242;
+  // };
+
   mounted(): void {
     this.resetPost();
     this.getPost(Number(this.$route.params.id));
@@ -59,5 +70,14 @@ export default class DetailsView extends Vue {
 .head {
   display: flex;
   justify-content: space-around;
+}
+
+.map {
+  font-family: "Ubuntu", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 10px;
 }
 </style>
