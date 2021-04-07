@@ -44,6 +44,13 @@ class Posts extends VuexModule {
             editedPost.savedStyle = item.style
         }
     }
+    @Mutation
+    addMarker(loca: Record<string, unknown>) {
+        const editedMap = this._posts.find(post => post.id === loca.id)
+        if (editedMap) {
+            editedMap.coord = loca.coord
+        }
+    }
 
     @Action
     async fetchData() {
@@ -75,7 +82,11 @@ class Posts extends VuexModule {
     }
     @Action
     updatePost(data: Record<string, unknown>) {
-        axios.put(`http://localhost:3000/posts/${data.id}`, { content: data.post })
+        const editedMap = this._posts.find(post => post.id === data.id)
+        if (editedMap) {
+            editedMap.content = data.post
+        }
+        axios.put(`http://localhost:3000/posts/${data.id}`, editedMap)
     }
     @Action
     setStyles(data: Record<string, unknown>) {
@@ -85,6 +96,15 @@ class Posts extends VuexModule {
                 style: data.value
             })
         }
+    }
+    @Action
+    addLocation(loca: Record<string, unknown>, _posts) {
+        const editedMap = this._posts.find(post => post.id === loca.id)
+        if (editedMap) {
+            editedMap.coord = loca.coord
+        }
+        axios.put(`http://localhost:3000/posts/${loca.id}`, editedMap)
+        this.context.commit('addMarker', loca)
     }
     @Action
     getPost(id: number) {

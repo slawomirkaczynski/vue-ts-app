@@ -1,12 +1,20 @@
 {
   "posts": [
     {
-      "id": 1,
-      "content": "wypic piwo z bangkoku"
+      "content": "piwo w bangkoku",
+      "id": 22,
+      "coord": {
+        "lat": 14.526259260032944,
+        "lng": 100.76002421749588
+      }
     },
     {
-      "id": 15,
-      "content": "odwiedzic slazaka w rio"
+      "id": 18,
+      "content": "jechac do rio",
+      "coord": {
+        "lat": -22.138098379146413,
+        "lng": -42.182883740091135
+      }
     }
   ]
 }
