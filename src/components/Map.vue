@@ -43,6 +43,7 @@ export default class Map extends Vue {
   mounted(): void {
     this.id = Number(this.$route.params.id);
     this.getPost(this.id);
+    // this.isLoading = false;
     // Initialize the platform object:
     const platform = new window.H.service.Platform({
       apikey: this.apikey,
@@ -75,10 +76,10 @@ export default class Map extends Vue {
       this.map.addObject(this.marker);
     }
     setTimeout(() => {
-      this.isLoading = false;
+      this.isLoading = !this.isLoading;
     }, 1000);
     addEventListener("resize", () => this.map.getViewPort().resize());
-
+    console.log(this.isLoading);
     this.map.addEventListener(
       "tap",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
