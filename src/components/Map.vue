@@ -21,9 +21,13 @@ const post = namespace("posts");
 export default class Map extends Vue {
   isLoading = true;
   id: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   marker: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   center: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   map: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   platform: any;
   apikey = "ZGNUtFh2JiunHkhPabyuqumegEyaIErRDZ_Ji7Ev3SA";
   // You can get the API KEY from developer.here.com
@@ -33,6 +37,7 @@ export default class Map extends Vue {
   @post.Action
   public getPost: (id: number) => void;
   @post.Getter
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   post!: Record<string, any>;
 
   mounted(): void {
@@ -76,6 +81,7 @@ export default class Map extends Vue {
 
     this.map.addEventListener(
       "tap",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       function (evt: any) {
         var coord = this.screenToGeo(
           evt.currentPointer.viewportX,
