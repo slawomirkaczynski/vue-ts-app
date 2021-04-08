@@ -35,6 +35,7 @@ export default class DetailsView extends Vue {
   // };
 
   mounted(): void {
+    document.body.scrollTop = 0;
     this.resetPost();
     this.getPost(Number(this.$route.params.id));
   }
