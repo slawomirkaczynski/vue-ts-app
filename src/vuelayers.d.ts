@@ -1,1 +1,1 @@
-declare module 'vuelayers';
+declare module "vuelayers";

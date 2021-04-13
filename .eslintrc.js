@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  
+
   extends: [
     "plugin:vue/essential",
     "eslint:recommended",
@@ -20,8 +20,8 @@ module.exports = {
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "auto"
-      }
-    ]
+        endOfLine: "auto",
+      },
+    ],
   },
 };

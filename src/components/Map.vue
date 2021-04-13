@@ -79,7 +79,6 @@ export default class Map extends Vue {
       this.isLoading = !this.isLoading;
     }, 1000);
     addEventListener("resize", () => this.map.getViewPort().resize());
-    console.log(this.isLoading);
     this.map.addEventListener(
       "tap",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

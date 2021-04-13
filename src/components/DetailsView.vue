@@ -4,15 +4,20 @@
     <v-subheader class="head" v-if="displayButton">
       <v-btn outlined rounded text color="orange">
         <router-link to="/"> Back </router-link>
-      </v-btn></v-subheader
-    >
+      </v-btn>
+      <v-btn outlined rounded text color="orange">
+        <router-link :to="{ name: 'Intel', params: { code: country } }">
+          Intel
+        </router-link>
+      </v-btn>
+    </v-subheader>
     <main class="container" v-if="post">
       <div v-if="post">{{ post.content }}</div>
     </main>
     <div class="map">
       <Map v-if="displayButton" />
-      <!-- <Map v-if="displayButton" :center="center" /> -->
     </div>
+    <router-view> </router-view>
   </v-card>
 </template>
 
@@ -20,6 +25,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import Map from "./Map.vue";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const crg = require("country-reverse-geocoding").country_reverse_geocoding();
 
 const Posts = namespace("posts");
 
@@ -29,15 +36,19 @@ const Posts = namespace("posts");
   },
 })
 export default class DetailsView extends Vue {
-  // center: {
-  //   lat: 10.73061;
-  //   lng: -23.935242;
-  // };
+  country: string;
+  geo() {
+    const country = crg.get_country(this.post.coord.lat, this.post.coord.lng)
+      .name;
+    console.log(country);
+    this.country = country;
+  }
 
   mounted(): void {
     document.body.scrollTop = 0;
     this.resetPost();
     this.getPost(Number(this.$route.params.id));
+    this.geo();
   }
 
   get displayButton(): boolean {
