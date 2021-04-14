@@ -45,11 +45,13 @@ export default class Map extends Vue {
     this.getPost(this.id);
     // this.isLoading = false;
     // Initialize the platform object:
-    const platform = new window.H.service.Platform({
-      apikey: this.apikey,
-    });
-    this.platform = platform;
-    this.initializeHereMap(this.id, this.addLocation);
+    if (this.post) {
+      const platform = new window.H.service.Platform({
+        apikey: this.apikey,
+      });
+      this.platform = platform;
+      this.initializeHereMap(this.id, this.addLocation);
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types

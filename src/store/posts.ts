@@ -5,6 +5,7 @@ import axios from "axios";
 class Posts extends VuexModule {
     _posts: Record<string, unknown>[] = []
     _post: Record<string, unknown> = {}
+    _intel:Record<string, unknown>
 
     get posts() {
         return this._posts
@@ -12,6 +13,10 @@ class Posts extends VuexModule {
 
     get post() {
         return this._post
+    }
+
+    get intel() {
+        return this._intel
     }
 
     @Mutation
@@ -51,7 +56,15 @@ class Posts extends VuexModule {
             editedMap.coord = loca.coord
         }
     }
-
+    @Mutation
+    loadIntel(data: Record<string, unknown>) {
+        this._intel = data
+    }
+    @Mutation
+    loadIntelReset() {
+        this._intel = {}
+        console.log(this._intel,'reset')
+    }
     @Action
     async fetchData() {
         await axios
@@ -114,6 +127,24 @@ class Posts extends VuexModule {
     @Action
     resetPost() {
         this.context.commit('resetSinglePost')
+    }
+    @Action
+    async getIntel(code: string) {
+        console.log('this._intel')
+        await axios
+            .get(`https://restcountries.eu/rest/v2/name/${code}`)
+            .then(response => {
+                console.log(response.data)
+                this.context.commit('loadIntel', response.data)
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    @Action
+    resetIntel() {
+        this.context.commit('loadIntelReset')
     }
 }
 export default Posts;
