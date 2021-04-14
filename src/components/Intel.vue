@@ -7,7 +7,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class Intel extends Vue {
-  mounted() {
+  mounted(): void {
     // https://restcountries.eu/rest/v2/name/{name}
     console.log(this.$route.params.code);
   }

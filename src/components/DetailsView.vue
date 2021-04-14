@@ -37,7 +37,7 @@ const Posts = namespace("posts");
 })
 export default class DetailsView extends Vue {
   country: string;
-  geo() {
+  geo(): void {
     const country = crg.get_country(this.post.coord.lat, this.post.coord.lng)
       .name;
     console.log(country);
