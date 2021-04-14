@@ -1,6 +1,6 @@
 <template>
   <div class="intel">
-    <div v-for="int in displayedCounrty" :key="int.name">
+    <div v-for="int in intel" :key="int.name">
       <img height="200px" :src="int.flag" />
       <ul class="column">
         <li>Continent: {{ int.subregion }}</li>
@@ -26,19 +26,20 @@ const Posts = namespace("posts");
 
 @Component
 export default class Intel extends Vue {
-  displayedCounrty = {};
   @Posts.Getter
   intel!: Record<string, unknown>;
+
+  @Posts.Action
+  public getIntel: (code: string) => void;
 
   @Posts.Action
   public resetIntel: () => void;
 
   mounted(): void {
-    this.displayedCounrty = this.intel;
+    this.getIntel(this.$route.params.code);
   }
 
   beforeDestroy(): void {
-    this.displayedCounrty = {};
     this.resetIntel();
   }
 }

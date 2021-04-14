@@ -38,11 +38,11 @@ const Posts = namespace("posts");
 export default class DetailsView extends Vue {
   country = "";
   geo(): void {
-    const country = crg.get_country(this.post.coord.lat, this.post.coord.lng)
-      .name;
-    console.log(country);
+    const country = crg.get_country(
+      this.post.coord["lat"],
+      this.post.coord["lng"]
+    ).name;
     this.country = country;
-    this.getIntel(this.country);
   }
 
   mounted(): void {
@@ -60,10 +60,6 @@ export default class DetailsView extends Vue {
     }
     return false;
   }
-
-  @Posts.Action
-  public getIntel: (code: string) => void;
-
   @Posts.Getter
   post!: Record<string, unknown>;
 

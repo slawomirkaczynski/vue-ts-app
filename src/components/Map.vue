@@ -46,7 +46,7 @@ export default class Map extends Vue {
     // this.isLoading = false;
     // Initialize the platform object:
     if (this.post) {
-      const platform = new window.H.service.Platform({
+      const platform = new window["H"].service.Platform({
         apikey: this.apikey,
       });
       this.platform = platform;
@@ -59,7 +59,7 @@ export default class Map extends Vue {
     // rendering map
     const mapContainer = this.$refs.hereMap;
 
-    const H = window.H;
+    const H = window["H"];
     // Obtain the default map types from the platform object
     var maptypes = this.platform.createDefaultLayers();
 
@@ -67,7 +67,6 @@ export default class Map extends Vue {
     this.map = new H.Map(mapContainer, maptypes.vector.normal.map, {
       zoom: 0,
       center: this.post.coord ? this.post.coord : this.center,
-      // center object { lat: 40.730610, lng: -73.935242 }
     });
 
     if (this.post.coord) {

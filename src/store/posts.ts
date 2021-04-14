@@ -5,7 +5,7 @@ import axios from "axios";
 class Posts extends VuexModule {
     _posts: Record<string, unknown>[] = []
     _post: Record<string, unknown> = {}
-    _intel:Record<string, unknown>
+    _intel:Record<string, unknown> = {}
 
     get posts() {
         return this._posts
@@ -63,7 +63,6 @@ class Posts extends VuexModule {
     @Mutation
     loadIntelReset() {
         this._intel = {}
-        console.log(this._intel,'reset')
     }
     @Action
     async fetchData() {
@@ -130,11 +129,9 @@ class Posts extends VuexModule {
     }
     @Action
     async getIntel(code: string) {
-        console.log('this._intel')
         await axios
             .get(`https://restcountries.eu/rest/v2/name/${code}`)
             .then(response => {
-                console.log(response.data)
                 this.context.commit('loadIntel', response.data)
 
             })
