@@ -18,7 +18,7 @@ const routes: Array<RouteConfig> = [
     component: Post,
     children: [
       {
-        path: "/:code/intel",
+        path: ":code/",
         name: "Intel",
         component: Intel,
       },
