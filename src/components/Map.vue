@@ -43,9 +43,9 @@ export default class Map extends Vue {
   mounted(): void {
     this.id = Number(this.$route.params.id);
     this.getPost(this.id);
-    // this.isLoading = false;
     // Initialize the platform object:
     if (this.post) {
+      // this.isLoading = false;
       const platform = new window["H"].service.Platform({
         apikey: this.apikey,
       });

@@ -9,24 +9,40 @@
         <li>Currencies: {{ int.currencies[0].name }}</li>
         <li>Language: {{ int.languages[0].name }}</li>
         <li>Native name: {{ int.nativeName }}</li>
-        <li @click="getCurrency(int.currencies[0].code)">Native name: {{}}</li>
-      </ul>
-      <div class="column">
-        <v-btn outlined rounded text color="orange" center>
-          <router-link to="/"> HomeBack </router-link>
+        <v-btn
+          outlined
+          rounded
+          text
+          color="orange"
+          center
+          @click="showTable = !showTable"
+        >
+          show currency
         </v-btn>
-      </div>
+      </ul>
+      <div class="column"></div>
     </div>
+    <Currencies v-if="showTable" />
+    <v-btn outlined rounded text color="orange" center>
+      <router-link to="/"> HomeBack </router-link>
+    </v-btn>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
+import Currencies from "./Currencies.vue";
 const Posts = namespace("posts");
 
-@Component
+@Component({
+  components: {
+    Currencies,
+  },
+})
 export default class Intel extends Vue {
+  showTable = false;
+
   @Posts.Getter
   intel!: Record<string, unknown>;
 

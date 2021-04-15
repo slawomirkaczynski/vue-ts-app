@@ -5,7 +5,9 @@ import axios from "axios";
 class Posts extends VuexModule {
     _posts: Record<string, unknown>[] = []
     _post: Record<string, unknown> = {}
-    _intel:Record<string, unknown> = {}
+    _intel: Record<string, unknown> = {}
+    _currency: Record<string, unknown> = {}
+    _allCurrency: Record<string, unknown>[] = []
 
     get posts() {
         return this._posts
@@ -17,6 +19,19 @@ class Posts extends VuexModule {
 
     get intel() {
         return this._intel
+    }
+
+    get currency() {
+        return this._currency
+    }
+
+    get allCurrencies() {
+        return this._allCurrency
+    }
+
+    @Mutation
+    loadAllCurrencies(money: Record<string, unknown>) {
+        this._allCurrency = money[0]['rates'];
     }
 
     @Mutation
@@ -63,6 +78,10 @@ class Posts extends VuexModule {
     @Mutation
     loadIntelReset() {
         this._intel = {}
+    }
+    @Mutation
+    loadCrrency(data: Record<string, unknown>) {
+        this._currency = data
     }
     @Action
     async fetchData() {
@@ -151,6 +170,17 @@ class Posts extends VuexModule {
                 console.log(response.data)
                 this.context.commit('loadCrrency', response.data)
 
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    @Action
+    async fetchCurrencies() {
+        await axios
+            .get("http://api.nbp.pl/api/exchangerates/tables/a/")
+            .then(response => {
+                this.context.commit('loadAllCurrencies', response.data)
             })
             .catch(error => {
                 console.log(error)
