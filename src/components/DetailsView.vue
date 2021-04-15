@@ -5,7 +5,7 @@
       <v-btn outlined rounded text color="orange">
         <router-link to="/"> Back </router-link>
       </v-btn>
-      <v-btn outlined rounded text color="orange">
+      <v-btn v-if="post.coord" outlined rounded text color="orange">
         <router-link :to="{ name: 'Intel', params: { code: country } }">
           Intel
         </router-link>
@@ -38,11 +38,14 @@ const Posts = namespace("posts");
 export default class DetailsView extends Vue {
   country = "";
   geo(): void {
-    const country = crg.get_country(
-      this.post.coord["lat"],
-      this.post.coord["lng"]
-    ).name;
-    this.country = country;
+    if (this.post) {
+      // console.log(this.post);
+      const country = crg.get_country(
+        this.post.coord["lat"],
+        this.post.coord["lng"]
+      ).name;
+      this.country = country;
+    }
   }
 
   mounted(): void {

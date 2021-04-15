@@ -9,6 +9,7 @@
         <li>Currencies: {{ int.currencies[0].name }}</li>
         <li>Language: {{ int.languages[0].name }}</li>
         <li>Native name: {{ int.nativeName }}</li>
+        <li @click="getCurrency(int.currencies[0].code)">Native name: {{}}</li>
       </ul>
       <div class="column">
         <v-btn outlined rounded text color="orange" center>
@@ -31,6 +32,9 @@ export default class Intel extends Vue {
 
   @Posts.Action
   public getIntel: (code: string) => void;
+
+  @Posts.Action
+  public getCurrency: (code: string) => void;
 
   @Posts.Action
   public resetIntel: () => void;

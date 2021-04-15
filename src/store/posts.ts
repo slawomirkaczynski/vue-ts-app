@@ -143,5 +143,18 @@ class Posts extends VuexModule {
     resetIntel() {
         this.context.commit('loadIntelReset')
     }
+    @Action
+    async getCurrency(code: string) {
+        await axios
+            .get(`http://api.nbp.pl/api/exchangerates/rates/a/${code}/`)
+            .then(response => {
+                console.log(response.data)
+                this.context.commit('loadCrrency', response.data)
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
 }
 export default Posts;
