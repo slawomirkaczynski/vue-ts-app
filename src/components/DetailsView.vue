@@ -5,7 +5,7 @@
       <v-btn outlined rounded text color="orange">
         <router-link to="/"> Back </router-link>
       </v-btn>
-      <v-btn v-if="show" outlined rounded text color="orange">
+      <v-btn v-if="displayIntel" outlined rounded text color="orange">
         <router-link :to="{ name: 'Intel', params: { code: country } }">
           Intel
         </router-link>
@@ -15,7 +15,7 @@
       <div v-if="post">{{ post.content }}</div>
     </main>
     <div class="map">
-      <Map v-if="displayButton" />
+      <Map @marker="click" v-if="displayButton" />
     </div>
     <router-view> </router-view>
   </v-card>
@@ -37,7 +37,16 @@ const Posts = namespace("posts");
 })
 export default class DetailsView extends Vue {
   country = "";
-  hasMarker = false;
+  displayIntel = false;
+
+  click(arg: string): void {
+    arg === "marked" && (this.displayIntel = true);
+    this.getPost(Number(this.$route.params.id));
+    if (this.post) {
+      this.geo();
+    }
+  }
+
   geo(): void {
     // eslint-disable-next-line no-prototype-builtins
     if ("coord" in this.post) {
@@ -46,6 +55,7 @@ export default class DetailsView extends Vue {
         this.post.coord["lng"]
       ).name;
       this.country = country;
+      this.displayIntel = true;
     }
   }
 

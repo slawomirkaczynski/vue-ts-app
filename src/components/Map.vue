@@ -40,22 +40,35 @@ export default class Map extends Vue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   post!: Record<string, any>;
 
+  sendEmit(): void {
+    this.$emit("marker", "marked");
+  }
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   mounted(): void {
+    setTimeout(() => {
+      this.isLoading = !this.isLoading;
+    }, 1000);
     this.id = Number(this.$route.params.id);
     this.getPost(this.id);
     // Initialize the platform object:
     if (this.post) {
-      // this.isLoading = false;
       const platform = new window["H"].service.Platform({
         apikey: this.apikey,
       });
       this.platform = platform;
-      this.initializeHereMap(this.id, this.addLocation);
+      this.initializeHereMap(this.id, this.addLocation, this.sendEmit);
+    } else {
+      this.$router.push({ name: "MainLayout" });
     }
   }
-
   // eslint-disable-next-line @typescript-eslint/ban-types
-  initializeHereMap(id: number, addLocation: Function): void {
+  initializeHereMap(
+    id: number,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    addLocation: Function,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    sendEmit: Function
+  ): void {
     // rendering map
     const mapContainer = this.$refs.hereMap;
 
@@ -76,9 +89,6 @@ export default class Map extends Vue {
       });
       this.map.addObject(this.marker);
     }
-    setTimeout(() => {
-      this.isLoading = !this.isLoading;
-    }, 1000);
     addEventListener("resize", () => this.map.getViewPort().resize());
     this.map.addEventListener(
       "tap",
@@ -94,6 +104,7 @@ export default class Map extends Vue {
         addLocation({ coord, id });
         this.marker = new H.map.Marker({ lat: coord.lat, lng: coord.lng });
         this.addObject(this.marker);
+        sendEmit();
       },
       // add behavior control
       new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map))

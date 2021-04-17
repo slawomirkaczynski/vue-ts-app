@@ -4,9 +4,10 @@
       "content": "piwo w bangkoku",
       "id": 22,
       "coord": {
-        "lat": 14.882189313450096,
-        "lng": 100.82255134735021
-      }
+        "lat": 13.72959089366651,
+        "lng": 100.44219230812669
+      },
+      "savedStyle": "bold"
     },
     {
       "id": 18,
@@ -17,83 +18,11 @@
       }
     },
     {
-      "id": 96,
-      "content": "jechac do afryki",
+      "id": 19,
+      "content": "aaaaaaaaaaa",
       "coord": {
-        "lat": -3.45757132327074,
-        "lng": 39.593176667202286
-      }
-    },
-    {
-      "id": 86,
-      "content": "odwiedzic szpaka",
-      "coord": {
-        "lat": 9.718720201851214,
-        "lng": 124.28761620947185
-      }
-    },
-    {
-      "id": 42,
-      "content": "odwiedzic okolice tajowa",
-      "coord": {
-        "lat": 11.553936766802853,
-        "lng": 104.54100131708547
-      }
-    },
-    {
-      "id": 99,
-      "content": "ghana action",
-      "coord": {
-        "lat": 6.1294943860491085,
-        "lng": -0.8575647075793194
-      }
-    },
-    {
-      "id": 45,
-      "content": "daminikana",
-      "coord": {
-        "lat": 19.596198383682722,
-        "lng": -70.19745374288195
-      }
-    },
-    {
-      "id": 82,
-      "content": "laos chillout",
-      "coord": {
-        "lat": 19.259294140463897,
-        "lng": 102.85400390625006
-      }
-    },
-    {
-      "id": 91,
-      "content": "grecja melanz",
-      "coord": {
-        "lat": 37.61745250132099,
-        "lng": 22.452909027566072
-      }
-    },
-    {
-      "id": 7,
-      "content": "indonezja trip",
-      "coord": {
-        "lat": 0.180853224027817,
-        "lng": 114.75643165625101
-      }
-    },
-    {
-      "id": 44,
-      "content": "urugway",
-      "coord": {
-        "lat": -33.42227225886604,
-        "lng": -56.004636883735614
-      }
-    },
-    {
-      "id": 37,
-      "content": "ssss",
-      "coord": {
-        "lat": 36.35936631592965,
-        "lng": -120.88257372379303
+        "lat": 38.77692927849446,
+        "lng": 107.57813304662704
       }
     }
   ]
