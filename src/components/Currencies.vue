@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table height="200px">
+  <v-simple-table height="100vh">
     <template v-slot:default>
       <thead>
         <tr>
@@ -11,7 +11,11 @@
       <tbody>
         <tr v-for="item in allCurrencies" :key="item.name">
           <td>{{ item.currency }}</td>
-          <td>{{ item.code }}</td>
+          <td>
+            <router-link :to="{ name: 'Chart', params: { code: item.code } }">{{
+              item.code
+            }}</router-link>
+          </td>
           <td>{{ item.mid }}</td>
         </tr>
       </tbody>
@@ -32,9 +36,9 @@ const posts = namespace("posts");
   },
 })
 export default class Currencies extends Vue {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async mounted() {
     await this.fetchCurrencies();
-    console.log(this.allCurrencies);
   }
 
   @posts.Getter

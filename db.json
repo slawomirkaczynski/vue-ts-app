@@ -10,19 +10,19 @@
       "savedStyle": "bold"
     },
     {
-      "id": 18,
-      "content": "jechac do rio",
+      "id": 27,
+      "content": "rio party",
       "coord": {
-        "lat": -20.617226971947755,
-        "lng": -42.102320910119815
+        "lat": -21.67103859246152,
+        "lng": -43.124999105930335
       }
     },
     {
-      "id": 19,
-      "content": "aaaaaaaaaaa",
+      "id": 56,
+      "content": "dubai",
       "coord": {
-        "lat": 38.77692927849446,
-        "lng": 107.57813304662704
+        "lat": 23.539820720346352,
+        "lng": 53.65453806473604
       }
     }
   ]

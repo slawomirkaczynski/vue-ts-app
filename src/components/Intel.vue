@@ -9,23 +9,12 @@
         <li>Currencies: {{ int.currencies[0].name }}</li>
         <li>Language: {{ int.languages[0].name }}</li>
         <li>Native name: {{ int.nativeName }}</li>
-        <v-btn
-          outlined
-          rounded
-          text
-          color="orange"
-          center
-          @click="showTable = !showTable"
-        >
-          show currency
+        <v-btn outlined rounded text color="orange" center>
+          <router-link :to="{ name: 'Currencies' }"> Currencies </router-link>
         </v-btn>
       </ul>
       <div class="column"></div>
     </div>
-    <Currencies v-if="showTable" />
-    <v-btn outlined rounded text color="orange" center>
-      <router-link to="/"> HomeBack </router-link>
-    </v-btn>
   </div>
 </template>
 
@@ -41,8 +30,6 @@ const Posts = namespace("posts");
   },
 })
 export default class Intel extends Vue {
-  showTable = false;
-
   @Posts.Getter
   intel!: Record<string, unknown>;
 

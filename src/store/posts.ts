@@ -8,6 +8,11 @@ class Posts extends VuexModule {
     _intel: Record<string, unknown> = {}
     _currency: Record<string, unknown> = {}
     _allCurrency: Record<string, unknown>[] = []
+    _coin: Record<string, unknown> = {}
+
+    get coin() {
+        return this._coin
+    }
 
     get posts() {
         return this._posts
@@ -82,6 +87,10 @@ class Posts extends VuexModule {
     @Mutation
     loadCrrency(data: Record<string, unknown>) {
         this._currency = data
+    }
+    @Mutation
+    loadCoin(data: Record<string, unknown>) {
+        this._coin = data
     }
     @Action
     async fetchData() {
@@ -167,7 +176,6 @@ class Posts extends VuexModule {
         await axios
             .get(`http://api.nbp.pl/api/exchangerates/rates/a/${code}/`)
             .then(response => {
-                console.log(response.data)
                 this.context.commit('loadCrrency', response.data)
 
             })
@@ -181,6 +189,19 @@ class Posts extends VuexModule {
             .get("http://api.nbp.pl/api/exchangerates/tables/a/")
             .then(response => {
                 this.context.commit('loadAllCurrencies', response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    @Action
+    async fetchCoin(code: string) {
+        await axios
+            .get(`http://api.nbp.pl/api/exchangerates/rates/a/${code}/last/10/?format=json
+            `)
+            .then(response => {
+                this.context.commit('loadCoin', response.data)
+
             })
             .catch(error => {
                 console.log(error)
