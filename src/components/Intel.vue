@@ -10,7 +10,9 @@
         <li>Language: {{ int.languages[0].name }}</li>
         <li>Native name: {{ int.nativeName }}</li>
         <v-btn outlined rounded text color="orange" center>
-          <router-link :to="{ name: 'Currencies' }"> Currencies </router-link>
+          <router-link :to="{ name: 'Currencies' }">
+            Check Currencies
+          </router-link>
         </v-btn>
       </ul>
       <div class="column"></div>

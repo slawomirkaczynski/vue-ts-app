@@ -13,6 +13,7 @@
     </v-subheader>
     <main class="container" v-if="post">
       <div v-if="post">{{ post.content }}</div>
+      <div v-if="distance">Distance: {{ distance }} Km</div>
     </main>
     <div class="map">
       <Map @marker="click" v-if="displayButton" />
@@ -38,12 +39,13 @@ const Posts = namespace("posts");
 export default class DetailsView extends Vue {
   country = "";
   displayIntel = false;
-
+  distance = "";
   click(arg: string): void {
     arg === "marked" && (this.displayIntel = true);
     this.getPost(Number(this.$route.params.id));
     if (this.post) {
       this.geo();
+      this.getCurrentLocation(this.post);
     }
   }
 
@@ -58,13 +60,38 @@ export default class DetailsView extends Vue {
       this.displayIntel = true;
     }
   }
-
   mounted(): void {
     document.body.scrollTop = 0;
     this.resetPost();
     this.getPost(Number(this.$route.params.id));
     if (this.post) {
+      this.getCurrentLocation(this.post);
+    }
+    if (this.post) {
       this.geo();
+    }
+  }
+
+  getCurrentLocation(post: Record<string, unknown>): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // const self = this;
+        if ("coord" in post) {
+          var radlat1 = (Math.PI * position.coords.latitude) / 180;
+          var radlat2 = (Math.PI * post.coord["lat"]) / 180;
+          var theta = position.coords.longitude - post.coord["lng"];
+          var radtheta = (Math.PI * theta) / 180;
+          var dist =
+            Math.sin(radlat1) * Math.sin(radlat2) +
+            Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+          dist = Math.acos(dist);
+          dist = (dist * 180) / Math.PI;
+          dist = dist * 60 * 1.1515;
+          dist = dist * 1.609344;
+          dist = Math.floor(dist);
+          this.distance = String(dist);
+        }
+      });
     }
   }
 
