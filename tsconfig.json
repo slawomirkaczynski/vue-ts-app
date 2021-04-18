@@ -34,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/backend/posts.model.js"  ],
+, "src/backend/posts.model.js", "server.ts"  ],
   "exclude": [
     "node_modules"
   ]
