@@ -62,22 +62,24 @@ export default class Map extends Vue {
     }
   }
   // eslint-disable-next-line @typescript-eslint/ban-types
-  initializeHereMap(
+  // eslint-disable-next-line prettier/prettier
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  async initializeHereMap(
     id: number,
     // eslint-disable-next-line @typescript-eslint/ban-types
     addLocation: Function,
     // eslint-disable-next-line @typescript-eslint/ban-types
     sendEmit: Function
-  ): void {
+  ) {
     // rendering map
     const mapContainer = this.$refs.hereMap;
 
-    const H = window["H"];
+    const H = await window["H"];
     // Obtain the default map types from the platform object
-    var maptypes = this.platform.createDefaultLayers();
+    var maptypes = await this.platform.createDefaultLayers();
 
     // Instantiate (and display) a map object:
-    this.map = new H.Map(mapContainer, maptypes.vector.normal.map, {
+    this.map = await new H.Map(mapContainer, maptypes.vector.normal.map, {
       zoom: 0,
       center: this.post.coord ? this.post.coord : this.center,
     });
@@ -89,7 +91,7 @@ export default class Map extends Vue {
       });
       this.map.addObject(this.marker);
     }
-    addEventListener("resize", () => this.map.getViewPort().resize());
+    await addEventListener("resize", () => this.map.getViewPort().resize());
     this.map.addEventListener(
       "tap",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
