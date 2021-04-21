@@ -4,10 +4,10 @@
       "content": "piwo w bangkoku",
       "id": 22,
       "coord": {
-        "lat": 13.72959089366651,
-        "lng": 100.44219230812669
+        "lat": -0.8660818748357595,
+        "lng": 101.37970482510212
       },
-      "savedStyle": "bold"
+      "savedStyle": "italic"
     },
     {
       "id": 27,
@@ -19,7 +19,15 @@
     },
     {
       "id": 35,
-      "content": "afryka"
+      "content": "afryka",
+      "coord": {
+        "lat": 17.5852929111625,
+        "lng": -2.693301109205906
+      }
+    },
+    {
+      "id": 28,
+      "content": "gfhhgf"
     }
   ]
 }

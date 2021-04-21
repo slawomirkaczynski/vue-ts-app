@@ -29,7 +29,7 @@ export default class Map extends Vue {
   map: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   platform: any;
-  apikey = "ZGNUtFh2JiunHkhPabyuqumegEyaIErRDZ_Ji7Ev3SA";
+  apikey = "oJRLarrR9ptiJgKl0DdzVr8A0DdMNyRihnNw2D4PMz4";
   // You can get the API KEY from developer.here.com
 
   @post.Action
